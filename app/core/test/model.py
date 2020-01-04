@@ -7,7 +7,9 @@ class TestModel(models.Model):
              update_fields=None):
 
         UsedModels.add(self.__class__)
-        super().save(force_insert=False, force_update=False, using=None, update_fields=None)
+        super().save(
+            force_insert=force_insert, force_update=force_update,
+            using=using, update_fields=update_fields)
 
     class Meta:
         abstract = True
