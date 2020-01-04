@@ -13,6 +13,7 @@ class Question(Model):
 
     class Meta:
         managed = False
+        db_table = 'question'
 
 
 class Choice(Model):
@@ -22,3 +23,4 @@ class Choice(Model):
 
     class Meta:
         managed=False
+        db_table = 'choice'
