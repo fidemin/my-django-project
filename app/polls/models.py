@@ -8,6 +8,7 @@ if test_mode():
 
 
 class Question(Model):
+    index = models.AutoField(primary_key=True)
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published', auto_now_add=True)
 
@@ -17,7 +18,8 @@ class Question(Model):
 
 
 class Choice(Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    index = models.AutoField(primary_key=True)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, db_column='question_index')
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
 
