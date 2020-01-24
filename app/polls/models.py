@@ -9,7 +9,8 @@ if test_mode():
 
 class Question(Model):
     index = models.AutoField(primary_key=True)
-    question_text = models.CharField(max_length=200)
+    title = models.CharField(max_length=200)
+    description = models.CharField(max_length=1000, default='')
     pub_date = models.DateTimeField('date published', auto_now_add=True)
 
     class Meta:
