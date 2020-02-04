@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.db import transaction
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
-
+from celery import signature
 
 from polls.models import Question, Choice
 
@@ -14,6 +14,23 @@ logger = logging.getLogger('app.logic')
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
+
+@csrf_exempt
+@require_http_methods(('POST',))
+def create_question_async(request):
+    """ create question record with celery
+    """
+
+    body = json.loads(request.body)
+    sign = signature(
+        'polls.tasks.create_question',
+        args=(body['title'], body['description']))
+
+    sign.delay()
+
+    response = HttpResponse()
+    response.status_code = 201
+    return response
 
 @csrf_exempt
 @require_http_methods(('POST',))

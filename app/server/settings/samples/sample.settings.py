@@ -1,6 +1,8 @@
 
 from server.settings.base import *
 
+CELERY_BROKER_URL = 'amqp://user:password@localhost:5672/your-vhost'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
